@@ -202,7 +202,7 @@ def sort_passengers():
         data = read_data(FILE)
 
         if not data:
-            print("No passengers found.")
+            console.print("No passengers found.")
             return
 
         print("\n1.ID 2.Name 3.Age 4.Nationality 5.Gender 6.Back")
@@ -231,7 +231,24 @@ def sort_passengers():
         else:
             data = sorted(data, key=lambda x: x[key].lower(), reverse=reverse)
 
-        print("\n--- Sorted ---")
+        #print("\n--- Sorted ---")
+        #for p in data:
+        #    print(f"{p['id']} | {p['name']} | {p['age']} | {p['nationality']} | {p['gender']}")
+        #    continue
+        table = Table(title="sorted table")
+
+        table.add_column("ID")
+        table.add_column("Name")
+        table.add_column("age")
+        table.add_column("Nationality")
+        table.add_column("Gender")
+
         for p in data:
-            print(f"{p['id']} | {p['name']} | {p['age']} | {p['nationality']} | {p['gender']}")
-            continue
+            table.add_row(
+                p["id"],
+                p["name"],
+                p["age"],
+                p["nationality"],
+                p["gender"]
+            )
+        console.print(table)       
