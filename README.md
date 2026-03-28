@@ -7,6 +7,12 @@ CLI-based system using Python
 - Passenger management
 - Booking system
 - Rich UI tables
+- CRUD operation
+- CSV data store
+- Verification
+- Validation
+- and so on
+
 
 ## Setup
 pip install -r requirements.txt
