@@ -287,7 +287,7 @@ def flight_booking_summary_():
         console.print("[red]No flights available.[/red]")
         return
 
-    table = Table(title="✈️ Flight Summary", show_lines=True)
+    table = Table(title="Flight Summary", show_lines=True)
 
     table.add_column("Flight ID", style="cyan")
     table.add_column("Route", style="magenta")

@@ -54,7 +54,7 @@ def view_flights():
         console.print("[red]No flights available.[/red]")
         return
 
-    table = Table(title="✈️ Flights", show_lines=True)
+    table = Table(title="Flights Details", show_lines=True)
 
     table.add_column("Flight ID", style="cyan")
     table.add_column("From", style="green")
