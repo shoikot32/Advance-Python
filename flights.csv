@@ -1,0 +1,5 @@
+flight_id,source,destination,seats,fare
+f12,Kolkata,Mumbai,199,1120
+f11,Dhaka,Shylet,49,4500
+f1,Dhaka,Ctg,50,4000.0
+f2,Ctg,Dhaka,49,3500.0
