@@ -62,7 +62,7 @@ def view_passengers():
 
     print("\n--- Passengers ---")
 
-    table = Table(title="✈ Passenger list")
+    table = Table(title="✈  Passenger list")
 
     table.add_column("ID")
     table.add_column("Name")
@@ -91,7 +91,7 @@ def search_passenger():
             print("Returning to menu...")
             break
 
-        data = read_data()
+        data = read_data(FILE)
 
         for p in data:
             if p["id"] == pid:
@@ -181,7 +181,7 @@ def delete_passenger():
         if pid == "0":
             break
 
-        data = read_data()
+        data = read_data(FILE)
 
         for p in data:
             if p["id"] == pid:
