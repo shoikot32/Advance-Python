@@ -231,10 +231,7 @@ def sort_passengers():
         else:
             data = sorted(data, key=lambda x: x[key].lower(), reverse=reverse)
 
-        #print("\n--- Sorted ---")
-        #for p in data:
-        #    print(f"{p['id']} | {p['name']} | {p['age']} | {p['nationality']} | {p['gender']}")
-        #    continue
+    
         table = Table(title="sorted table")
 
         table.add_column("ID")
