@@ -1,12 +1,14 @@
 import csv
 from utils import write_data, read_data, init_file, prompt_passenger_id, prompt_name, prompt_age, prompt_nationality, prompt_non_empty, confirm, prompt_gender,prompt_passport
-
+from rich.console import Console
+from rich.table import Table
+console = Console()
 
 FILE = "passengers.csv"
 HEADERS = ["id", "name", "passport", "age", "nationality", "gender"]
 init_file(FILE, HEADERS)
 
-#add
+""" add """
 def add_passenger():
     while True:
         data = read_data(FILE)
@@ -50,20 +52,37 @@ def add_passenger():
             break
 
 
-# VIEW
+""" VIEW """
 def view_passengers():
     data = read_data(FILE)
 
     if not data:
-        print("No passengers found.")
+        console.print("No passengers found.")
         return
 
     print("\n--- Passengers ---")
+
+    table = Table(title="✈ Passenger list")
+
+    table.add_column("ID")
+    table.add_column("Name")
+    table.add_column("Passport")
+    table.add_column("Age")
+    table.add_column("Nationality")
+    table.add_column("Gender")
+
     for p in data:
-        print(f"{p['id']} | {p['name']} | {p['passport']} | {p['age']} | {p['nationality']} | {p['gender']}")
-
-
-# SEARCH
+        table.add_row(
+            p["id"],
+            p["name"],
+            p["passport"],
+            p["age"],
+            p["nationality"],
+            p["gender"]
+        )
+    console.print(table)
+            
+""" SEARCH """
 def search_passenger():
     while True:
         pid = prompt_passenger_id("\nEnter Passenger ID (or 0 to exit): ")
@@ -85,7 +104,7 @@ def search_passenger():
         # ADD THIS (so user knows it continues)
         print("Search again or press 0 to exit")
 
-# UPDATE
+""" UPDATE """
 def update_passenger():
     while True:
         pid = prompt_passenger_id("\nEnter Passenger ID to update (or 0 to exit): ")
@@ -154,7 +173,7 @@ def update_passenger():
         # LOOP CONTINUES CLEANLY
         print("\n Update another or press 0 to exit")
 
-# DELETE
+""" DELETE """
 def delete_passenger():
     while True:
         pid = prompt_passenger_id("\nEnter Passenger ID to delete (or 0 to exit): ")
@@ -177,7 +196,7 @@ def delete_passenger():
             print("Passenger not found")
 
 
-# SORT
+""" SORT """
 def sort_passengers():
     while True:
         data = read_data(FILE)
