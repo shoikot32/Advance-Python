@@ -1,4 +1,7 @@
 import csv
+from rich.table import Table
+from rich.console import Console
+console = Console()
 from utils import read_data, write_data, prompt_flight_id, prompt_passenger_id, prompt_booking_id, init_file, confirm
 
 FILE = "bookings.csv"
@@ -275,19 +278,25 @@ def update_booking():
         if not confirm("Update another booking? (y/n): "):
             break
 
+
 def flight_booking_summary_():
     bookings = read_data("bookings.csv")
     flights = read_data("flights.csv")
 
     if not flights:
-        print("No flights available.")
+        console.print("[red]No flights available.[/red]")
         return
 
-    print("\n-------------------------------------- Flight Summary Table --------------------------------------------------------------")
+    table = Table(title="✈️ Flight Summary", show_lines=True)
 
-    # Calculate and display summary for each flight
-    print(f"{'Flight ID':<6} {'Route':<25} {'Price':<8} {'Total':<6} {'Booked':<8} {'Left':<6} {'Revenue':<10} {'Occupancy %':<12}")
-    print("-" * 100)
+    table.add_column("Flight ID", style="cyan")
+    table.add_column("Route", style="magenta")
+    table.add_column("Price", justify="right")
+    table.add_column("Total", justify="right")
+    table.add_column("Booked", justify="right")
+    table.add_column("Left", justify="right")
+    table.add_column("Revenue", justify="right")
+    table.add_column("Occupancy %", justify="right")
 
     for f in flights:
         fid = f["flight_id"]
@@ -297,11 +306,22 @@ def flight_booking_summary_():
         total_seats = int(f["seats"]) + booked
         seats_left = int(f["seats"])
 
-        fare = float(f["fare"]) 
+        fare = float(f["fare"])
         revenue = booked * fare
 
         occupancy = (booked / total_seats * 100) if total_seats > 0 else 0
 
-        route = f"{f['source']} --> {f['destination']}"
+        route = f"{f['source']} → {f['destination']}"
 
-        print(f"{fid:<6} {route:<25} {fare:<8.2f} {total_seats:<6} {booked:<8} {seats_left:<6} {revenue:<10.2f} {occupancy:<.2f}%")
+        table.add_row(
+            fid,
+            route,
+            f"{fare:.2f}",
+            str(total_seats),
+            str(booked),
+            str(seats_left),
+            f"{revenue:.2f}",
+            f"{occupancy:.2f}%"
+        )
+
+    console.print(table)

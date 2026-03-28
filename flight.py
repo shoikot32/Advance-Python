@@ -1,4 +1,7 @@
 import csv
+from rich.table import Table
+from rich.console import Console
+console = Console()
 from utils import write_data, read_data, clean_name, prompt_non_empty, prompt_flight_id, prompt_int, prompt_float, init_file, confirm
 
 FILE = "flights.csv"
@@ -42,17 +45,33 @@ def add_flight():
             break
 
 # View Flights
+
+
 def view_flights():
     data = read_data(FILE)
 
     if not data:
-        print("No flights available.")
+        console.print("[red]No flights available.[/red]")
         return
 
-    print("\n--- Flights ---")
-    for f in data:
-        print(f"ID: {f['flight_id']} | From {f['source']} --> To {f['destination']} | Seats: {f['seats']} | Fare: {f['fare']}")
+    table = Table(title="✈️ Flights", show_lines=True)
 
+    table.add_column("Flight ID", style="cyan")
+    table.add_column("From", style="green")
+    table.add_column("To", style="green")
+    table.add_column("Seats", justify="right")
+    table.add_column("Fare", justify="right")
+
+    for f in data:
+        table.add_row(
+            f["flight_id"],
+            f["source"],
+            f["destination"],
+            str(f["seats"]),
+            f"{float(f['fare']):.2f}"
+        )
+
+    console.print(table)
 
 def update_flight():
     

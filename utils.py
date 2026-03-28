@@ -226,3 +226,21 @@ def prompt_nationality(prompt: str = "Nationality: ") -> str:
         else:
             return nat.title()
         
+def prompt_passport(prompt: str = "Passport: ") -> str:
+    while True:
+        val = input(prompt).strip().upper()
+
+        if not val:
+            print("Passport cannot be empty.")
+
+        elif " " in val:
+            print("Passport cannot contain spaces.")
+
+        elif not val.isalnum():
+            print("Passport must be alphanumeric (letters + numbers only).")
+
+        elif len(val) < 6 or len(val) > 9:
+            print("Passport must be 6–9 characters long.")
+
+        else:
+            return val
