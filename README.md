@@ -10,4 +10,6 @@ CLI-based system using Python
 
 ## Setup
 pip install -r requirements.txt
+
+
 python main.py
